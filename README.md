@@ -20,7 +20,7 @@ comando `ls` como listar, para encontrar objetos en el sistema de archivos / con
  
 `stat` muestra info imporante del archivo
 
-comando `pwd` para mostrar dir actual, print working directory
+comando `pwd` para mostrar dir actual, pridunt working directory
 
 comand `man` muestra manual para comando especefico
 
@@ -87,7 +87,7 @@ man tiene 8 seciones
 
 ### permisos
 
-### rbac rol base acceso control
+rbac rol base acceso control
 
 lectura r
 escritura w
@@ -97,11 +97,39 @@ primera tripleta permisos que aplicanl al dueño del objeto
 segunda trupoleta permisos que aplucan al grupo que pertenece el dueño
 tercera tripleta permisos que aplican a todos los demas
 
+`chhown` cambia usuario:grupo nombredearchivo
+   -R recursivo al arbol de dir
+   -h no siga los cambios simbolicos, cambia ellink y no el archivo objetivo
+   -f muestre no error
+
+Examples:
+Root changes the ownership of "/etc/passwd" and "/etc/shadow" to user root, group wheel:
+
+ # `chown root:wheel /etc/passwd /etc/shadow`
+The same, but only changing the owner:
+
+ # `chown root: /etc/{passwd,shadow}`
+The same, but only changing the group:
+
+ # `chown :wheel /etc/{passwd,shadow}`
+Root gives every file in "/etc/ssh", including files in subdirectories, to user root, group wheel:
+
+ # `chown -R root:wheel /etc/ssh`
+The same, but excluding files in directories (and the invisible files "/etc/ssh/.*" will also be missed):
+
+ # `chown root:wheel /etc/ssh/*`
+User "tux" changes the directory "/usr/local/src/xc" from group "tux" to group "wheel". Tux is a member of both groups.
+
+ $ ls -ld /usr/local/src/xc
+drwxr-xr-x  11 tux  tux  512 Sep 30 16:19 /usr/local/src/xc
+$ chown tux:wheel /usr/local/src/xc
+$ ls -ld /usr/local/src/xc
+drwxr-xr-x  11 tux  wheel  512 Sep 30 16:19 /usr/lo
+
 
 `chmod` modificacion binaria de permisos
-
-u usuario
-g grupo
-+ agrega
-- quita
-=esta
+  u usuario
+  g grupo
+  + agrega
+  - quita
+  = esta
